@@ -37,7 +37,7 @@ class AcervoImpreso extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('catalogo, material, idioma, titulo, estatus', 'required'),
+			array('catalogo, material, idioma, titulo', 'required'),
 			array('catalogo, material, idioma', 'numerical', 'integerOnly'=>true),
 			array('autor_personal, autor_corporativo, edicion, isbn, descripcion_area, serie, fondo, acento, tipo_formato', 'safe'),
 			// The following rule is used by search().
@@ -72,7 +72,7 @@ class AcervoImpreso extends CActiveRecord
 			'autor_corporativo' => 'Autor Corporativo',
 			'edicion' => 'Edición',
 			'isbn' => 'ISBN',
-			'descripcion_area' => 'DescripciÓn Area',
+			'descripcion_area' => 'Descripción Area',
 			'serie' => 'Serie',
 			'fondo' => 'Fondo',
 			'acento' => 'Acento',

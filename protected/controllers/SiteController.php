@@ -49,13 +49,11 @@ class SiteController extends Controller
 
 	public function actionIndex()
 	{
-		/*
-		$dataProvider=new CActiveDataProvider('Acervo');
+		/*$dataProvider=new CActiveDataProvider('Acervo');
 		$this->render('acervo/index',array(
 			'dataProvider'=>$dataProvider,
 		));
 		*/
-		/*
 		$model=new Acervo('search');
 		$model->unsetAttributes();  // clear any default values
 		$model->cons = 'S'; // para que me aparescan solo la información pública del acervo, 
@@ -65,87 +63,7 @@ class SiteController extends Controller
 			$this->render('acervo/admin',array(
 				'model'=>$model,
 			));
-		*/
-			
-		$model= new Inventario('search');	
-		$model->unsetAttributes();
-		$model->estatus = 1;//1 alta, 0 baja
-		
-		if(isset($_POST['Inventario'])) //Estaba en _GET
-		{
-			//$model->attributes=$_GET['Inventario'];
-			
-			$model->clasificacion = $_POST['Inventario']['clasificacion'];
-			$model->fecha_ingreso = $_POST['Inventario']['fecha_ingreso'];
-			$model->pie_imprenta = $_POST['Inventario']['pie_imprenta'];
-			$model->descripcion_fisica = $_POST['Inventario']['descripcion_fisica'];
-			
-			/*
-			echo '<pre>';
-			print_r($model);
-			echo '</pre>';			
-			Yii::app()->end(); // termino la aplicación para poder ver los resultados en pantalla 	
-			*/
-			
-			$this->redirect(array('buscar',				
-				'clasificacion'=>$model->clasificacion, 'fecha_ingreso'=>$model->fecha_ingreso, 'pie_imprenta'=>$model->pie_imprenta,'descripcion_fisica'=>$model->descripcion_fisica
-			));	
-			
-			/*
-			$this->redirect(array('buscar',				
-				'model'=>$model
-			));			
-			*/
-			
-			//$this->render('inventario/buscar', array('model'=>$model));
-
-
-		}
-		$this->render('inventario/inventario',array(
-			'model'=>$model,
-		));
-		
-	}
-	/*
-	public function actionBuscar($model){
-		$this->render('inventario/buscar', array('model'=>$model));
-	}
-	*/
-	
-	public function  actionBuscar($clasificacion, $fecha_ingreso, $pie_imprenta, $descripcion_fisica)
-	{
-		
-		/*
-		$this->render('inventario/buscar',array(
-			'clasificacion'=>$clasificacion, 'fecha_ingreso'=>$fecha_ingreso, 'pie_imprenta'=>$pie_imprenta,
-			'descripcion_fisica'=>$descripcion_fisica	
-		));
-		*/
-		
-
-
-		//buscar en Criteria los elementos que coincidan con la busqueda para poder importarlos en un objeto y poder desplegarlos en la vista "buscar.php"
-
-		$criteria = new CDbCriteria();
-		$criteria->compare('clasificacion', $clasificacion, true, "OR");
-		$criteria->compare('fecha_ingreso', $fecha_ingreso, true, "OR");
-		$criteria->compare('pie_imprenta', $pie_imprenta, true, "OR");
-		$criteria->compare('descripcion_fisica', $descripcion_fisica, true, "OR");		
-		$dataProvider = Inventario::model()->findAll($criteria);
-			
-			echo '<pre>';
-			print_r($dataProvider);
-			echo '</pre>';			
-			Yii::app()->end(); // termino la aplicación para poder ver los resultados en pantalla 	
-			
-		
-		$this->render('inventario/buscar',array(
-			'dataProvider'=>$dataProvider,
-		));
-		
-
-	}
-	
+	}	
 
 	public function actionAdmin()
 	{

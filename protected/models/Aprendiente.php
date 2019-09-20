@@ -162,6 +162,12 @@ class Aprendiente extends CActiveRecord
 								'asc'=>'idaprendiente ASC',
 								//'desc'=>'idaprendiente DESC',
 							),
+							'apellidopaterno'=>array(
+								'asc'=>'apellidopaterno ASC',
+							),
+							'fecharegistro'=>array(
+								'asc'=> 'fecharegistro ASC',
+							),
 							/*
 							'fechainscripcion'=>array(
 								'fechainscripcion'=>'fechainscripcion ASC',

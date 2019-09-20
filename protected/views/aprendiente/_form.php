@@ -22,6 +22,7 @@
  
 		<?php 
 
+			
             echo $form->textFieldGroup(
                 $model,
                 'apellidopaterno',

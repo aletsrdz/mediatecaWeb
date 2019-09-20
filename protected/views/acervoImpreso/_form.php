@@ -15,9 +15,28 @@
 	)
 ); ?>
 
+<?php
+	
+	$Criteria = new CDbCriteria();								
+	$Criteria -> limit = 1;
+	$Criteria -> order = "idacervo DESC";	
+	$acervo = 	Inventario::model()->find($Criteria);
+	/*
+	echo '<pre>';
+	print_r($acervo);
+	echo '</pre>';
+	echo $acervo->idacervo;				
+	Yii::app()->end(); // termino la aplicación para poder ver los resultados en pantalla 	
+	*/
+
+	$idacervo=(int)$acervo->idacervo;
+	$idacervo=$idacervo+1; // Incrmento el valor de idaprendiente en UNO para insertar con el siguiente registro
+
+?>
+
 <fieldset>
 
-		<legend>Crear Acervo Impreso</legend>
+		<legend>Crear Acervo Impreso <?php echo '  - '.$idacervo; ?></legend>
  
 	<?php 
 		/*
@@ -46,6 +65,7 @@
 		);
 
 		$Criteria = new CDbCriteria();
+		$Criteria->addInCondition("idmaterial",array(1,2,6,7,8,9,10,12,15));
 		$Criteria -> order = "idmaterial ASC";
 		echo $form->dropDownListGroup(
             $model,
@@ -169,7 +189,7 @@
 			$model,
 			'fondo',
 			array(
-				'wrapperHtmlOptions' => array('class' => 'col-sm-5'),                    
+				'wrapperHtmlOptions' => array('class' => 'col-sm-5'),            
 			)
 		);
 		echo $form->textFieldGroup(

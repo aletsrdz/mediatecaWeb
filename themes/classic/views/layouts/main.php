@@ -49,10 +49,16 @@
 
 	<div class="clear"></div>
 
-	<div id="footer">
+	<div id="footer">				
 		Universidad Nacional Autonoma de México  &copy; <?php echo date('Y'); ?> <br/>
 		Centro de Enseñanza de Lenguas Extranjeras | http://cele.unam.mx 
-		Ciruito Interior, Cd. Universitaria, 04510. México, D.F. (52) 55-656220690 | Última actualización 07/06/2016 | Créditos - themes/clasic/views/main.php -.<br/>		
+		Ciruito Interior, Cd. Universitaria, 04510. México, D.F. (52) 55-656220690 | Última actualización 07/06/2016 | Créditos - themes/clasic/views/main.php<br/>		
+		<div style="text-align:center; font-size: .9em;">                
+                <?php 
+                	echo CHtml::link('Aviso de Privacidad','http://enallt.unam.mx/documentos/AvisoPrivacidad/AP_Simplificado.pdf', array('target'=>'_blank')); 
+                ?>
+        </div>
+
 	</div><!-- footer -->
 
 </div><!-- page -->
