@@ -28,7 +28,7 @@ class AcervoImpresoController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view', 'create', 'update', 'admin', 'delete', 'acervo', 'updateInventario'),
+				'actions'=>array('index','view', 'create', 'update', 'admin', 'delete', 'acervo', 'updateInventario', 'admin'),
 				#'users'=>array('*'),
 				'roles'=>array('asist'),
 			),

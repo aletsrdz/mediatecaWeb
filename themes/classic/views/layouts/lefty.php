@@ -91,12 +91,12 @@
 				'itemOptions' => array('class' => 'nav-header')
 			),
       '',                       
-                array('label' => 'Generar Etiquetas', 
-                      'url' => '../private/etiquetas',
-                      'visible'=>Yii::app()->user->checkAccess("admin")
-                ),
                 array('label' => 'Crear Acervo', 
                       'url' => '../private/acervo',
+                      'visible'=>Yii::app()->user->checkAccess("admin")
+                ),      
+                array('label' => 'Generar Etiquetas', 
+                      'url' => '../private/etiquetas',
                       'visible'=>Yii::app()->user->checkAccess("admin")
                 ),
                 /*
@@ -115,10 +115,14 @@
                       'visible'=>Yii::app()->user->checkAccess("super")
                 ),
                 */
-                array('label' => 'Consulta',
-                      'url' => '../private/index',
+                array('label' => 'Buscar A.Digital',
+                      'url' => '../acervoDigital/admin',
                       'visible'=>Yii::app()->user->checkAccess("admin")
                 ),
+                array('label' => 'Buscar A.Impreso',
+                      'url' => '../acervoImpreso/admin',
+                      'visible'=>Yii::app()->user->checkAccess("admin")
+                ),                
                 array('label' => 'Etiquetas',
                        'url' => '../private/etiquetas',
                        'visible'=>Yii::app()->user->checkAccess("admin")
