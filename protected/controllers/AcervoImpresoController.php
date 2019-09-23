@@ -212,18 +212,19 @@ public function actionAcervo($id)
 		if(isset($_POST['Inventario'])){
 			$inventario->attributes=$_POST['Inventario'];
 			if($inventario->save())
-				/*
+				
 				$Criteria = new CDbCriteria();								
+				$Criteria->condition = "idacervo=".$id;
 				$Criteria -> limit = 1;
 				$Criteria -> order = "idacervo_anterior DESC";	
 				$acervo = 	Inventario::model()->find($Criteria);
-				
+				/*
 				echo '<pre>';
 				print_r($inventario);
 				echo '</pre>';
 				Yii::app()->end(); // termino la aplicación para poder ver los resultados en pantalla 
 				*/
-				$this->redirect(array('view','id'=>$inventario->idacervo));
+				$this->redirect(array('view','id'=>$acervo->idacervo_anterior));
 
 		}
 		
