@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Consultar Acervo Impreso</h1>
+<h1>Buscar Acervo Impreso</h1>
 
 <p>
 

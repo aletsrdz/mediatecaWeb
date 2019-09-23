@@ -182,23 +182,23 @@ public function actionAcervo($id)
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-
+	public function actionUpdate($id){
+		$Criteria = new CDbCriteria();		
+		$Criteria->condition = "idacervo=".$id;
+		$inventario = Inventario::model()->find($Criteria);
+		
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['AcervoDigital']))
+		if(isset($_POST['Inventario']))
 		{
-			$model->attributes=$_POST['AcervoDigital'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idacervo));
+			$inventario->attributes=$_POST['Inventario'];
+			if($inventario->save())
+				$this->redirect(array('view','id'=>$inventario->idacervo));
 		}
 
-		$this->render('update',array(
-			'model'=>$model,
+		$this->render('inventario',array(
+			'inventario'=>$inventario,
 		));
 	}
 
