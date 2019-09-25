@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);//Para desactivar las notificaciones de PHP, lo tuve que poner porque no me reconocía el $data->languages->nombre, es que la base de datos algunos datos no tienen el IDIOMA, creo que por eso no lo reconoce
 /* @var $this AcervoImpresoController */
 /* @var $model AcervoImpreso */
 
@@ -39,15 +40,47 @@ $('.search-form form').submit(function(){
 ));*/ ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+
+<?php 
+	/*
+		echo '<pre>';
+		print_r($dataProvider);
+		echo '</pre>';
+		Yii::app()->end(); // termino la aplicación para poder ver los resultados en pantalla 
+	*/
+
+	$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'acervo-impreso-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->search(),	
+	'emptyText' => 'NO SE ENCONTRARÓN RESULTADOS',
+	'summaryText' => 'Mostrar {start} - {end} de {count}',
+	'pager' => array('class' => 'CLinkPager', 'header' => 'Ir a página:', 'nextPageLabel'=>"Siguiente", 'prevPageLabel'=>'Anterior'),
 	'filter'=>$model,
 	'columns'=>array(
-		'idacervo',
-		'catalogo',
-		'material',
-		'idioma',
+		array(
+            'name'=>'idacervo',
+            'header'=>'Idace',
+            'htmlOptions'=>array('style'=>'width: 50px; text-align: left;'),            
+        ),  
+        array(
+            'name'=>'catalogo',
+            'header'=>'Catalogo',
+            //'value'=>'($data->catalogo==1?"Otro" : "Mediateca")',
+            'value' => '$data->catalogos->nombre',                
+            'htmlOptions'=>array('style'=>'width: 50px; text-align: left;'),            
+        ),		
+		array(
+            'name'=>'materiales_search',
+            'header'=>'Material',
+            'value'=>'$data->materiales->descripcion',
+            'htmlOptions'=>array('style'=>'width: 50px; text-align: left;'),            
+        ),
+		array(
+            'name'=>'languages_search',
+            'header'=>'Idioma',
+            'value' => '$data->languages->nombre',                
+            'htmlOptions'=>array('style'=>'width: 30px; text-align: center;'),            
+        ),       		
 		'titulo',
 		'autor_personal',
 		/*
@@ -67,4 +100,6 @@ $('.search-form form').submit(function(){
 			'header'=>'Acciones',
 		),
 	),
-)); ?>
+));
+
+ ?>

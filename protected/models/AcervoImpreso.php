@@ -21,6 +21,11 @@
  */
 class AcervoImpreso extends CActiveRecord
 {
+	public $languages_search; // Se agrega esta variable para que pueda funcionar el admin.php de AcervoImpreso
+	public $materiales_search;
+	public $catalogos_search;
+
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -42,7 +47,7 @@ class AcervoImpreso extends CActiveRecord
 			array('autor_personal, autor_corporativo, edicion, isbn, descripcion_area, serie, fondo, acento, tipo_formato', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idacervo, catalogo, material, idioma, titulo, autor_personal, autor_corporativo, edicion, isbn, descripcion_area, serie, fondo, acento, tipo_formato', 'safe', 'on'=>'search'),
+			array('idacervo, catalogo, material, idioma, titulo, autor_personal, autor_corporativo, edicion, isbn, descripcion_area, serie, fondo, acento, tipo_formato, catalogos_search, languages_search, materiales_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,8 +58,12 @@ class AcervoImpreso extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
-		return array(
+		return array(							
+			'materiales' => array(self::BELONGS_TO, 'Material', 'material'),
+			'languages' => array(self::BELONGS_TO, 'Idioma', 'idioma'),
+			'catalogos' => array(self::BELONGS_TO, 'Catalogo', 'catalogo'),
 		);
+		
 	}
 
 	/**
@@ -64,7 +73,7 @@ class AcervoImpreso extends CActiveRecord
 	{
 		return array(
 			'idacervo' => 'ID. Acervo',
-			'catalogo' => 'Catalogo',
+			'catalogo' => 'Catalogo',			
 			'material' => 'Material',
 			'idioma' => 'Idioma',
 			'titulo' => 'Titulo',
@@ -97,11 +106,18 @@ class AcervoImpreso extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
+		$sort = new CSort();
+		//$criteria->with = array('materiales');	
+		//$criteria->with = array('idiomas');					
+		//$criteria->with = array('materiales');			
+		$criteria->with = array('materiales','languages','catalogos');
 		$criteria->compare('idacervo',$this->idacervo);
-		$criteria->compare('catalogo',$this->catalogo);
-		$criteria->compare('material',$this->material);
-		$criteria->compare('idioma',$this->idioma);
+		$criteria->compare('catalogos.nombre',$this->catalogos_search, true);
+		//$criteria->compare('catalogo',$this->catalogo);
+		//$criteria->compare('material',$this->material);
+		$criteria->compare('materiales.descripcion',$this->materiales_search, true);
+		//$criteria->compare('idioma',$this->idioma);
+		$criteria->compare('languages.nombre',$this->languages_search,true);
 		$criteria->compare('titulo',$this->titulo,true);
 		$criteria->compare('autor_personal',$this->autor_personal,true);
 		$criteria->compare('autor_corporativo',$this->autor_corporativo,true);
@@ -115,6 +131,27 @@ class AcervoImpreso extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>array(
+						'attributes'=>array(
+							'idacervo'=>array(
+								'asc'=>'idacervo ASC',
+								'desc'=>'idacervo DESC',
+							),							
+							'materiales_search'=>array(
+								'asc'=>'materiales.descripcion ASC',
+								'desc'=>'materiales.descripcion DESC',
+							),
+							'languages_search'=>array(
+								'asc'=>'languages.nombre ASC',
+								'desc'=>'languages.nombre DESC',
+							),				
+							'catalogos_search'=>array(
+								'asc'=>'catalogos.nombre ASC',
+								'desc'=>'catalogos.nombre DESC',
+							),
+						),                
+						'defaultOrder'=>'idacervo DESC',      
+                    ),		
 		));
 	}
 

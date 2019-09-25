@@ -44,6 +44,9 @@ class Idioma extends CActiveRecord
 		return array(
 			'aprendiente'=>array(self::HAS_MANY, 'Aprendiente2', 'idioma'),
 			'acervo'=>array(self::HAS_MANY, 'Acervo', 'idioma'),
+			'acervo_impreso'=>array(self::HAS_MANY, 'AcervoImpreso', 'idioma'),
+			'language'=>array(self::BELONGS_TO, 'AcervoImpreso', 'ididioma'),
+			'languages'=>array(self::BELONGS_TO, 'AcervoImpreso', 'ididioma'),
 		);
 	}
 
